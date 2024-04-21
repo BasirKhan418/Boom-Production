@@ -19,7 +19,9 @@
 </head>
 <body>
 
-
+<?php
+session_start();
+?>
     <div class=" sticky top-4 z-20">
        <!-- ========== HEADER ========== -->
 <header class="inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full ">
@@ -44,11 +46,11 @@
       <div id="navbar-collapse" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block">
         <div class="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:items-center md:justify-end md:gap-y-0 md:gap-x-7 md:mt-0 md:ps-7">
           <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/" aria-current="page">Home</a>
-          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/#pricing">Pricing</a>
-          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/#review">Reviews</a>
-          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/#blogs">Blogs</a>
-          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/#blogs">About Us</a>
-          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/#blogs">Contact Us</a>
+          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/boom/#pricing">Pricing</a>
+          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/boom/#review">Reviews</a>
+          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/boom/#blogs">Blogs</a>
+          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/boom/boom.php">Meeting</a>
+          <a class="text-sm text-white hover:text-neutral-300 md:py-4 focus:outline-none focus:text-neutral-300" href="/boom/#blogs">Contact Us</a>
   
           <div class="hs-dropdown [--strategy:static] md:[--strategy:fixed] [--adaptive:none] md:py-4">
             
@@ -67,9 +69,19 @@
           </div>
   
           <div>
-            <a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#ff0] font-medium text-sm text-neutral-800 rounded-full focus:outline-none" href="/Register.html">
-              Login/Register
-            </a>
+            <?php
+            if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
+              echo '<a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#ff0] font-medium text-sm text-neutral-800 rounded-full focus:outline-none" href="/boom/logout.php">
+             Log Out
+           </a>';
+            }
+            else{
+             echo '<a class="group inline-flex items-center gap-x-2 py-2 px-3 bg-[#ff0] font-medium text-sm text-neutral-800 rounded-full focus:outline-none" href="/boom/login.php">
+             Login/Register
+           </a>';
+            }
+            ?>
+            
           </div>
         </div>
       </div>
@@ -91,7 +103,7 @@
   
         <!-- Buttons -->
         <div class="mt-7 grid gap-3 w-full sm:inline-flex">
-          <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="/Register.html">
+          <a class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" href="/boom/register.html">
             Get started
             <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
           </a>

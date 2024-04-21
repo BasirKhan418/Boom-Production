@@ -5,15 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
      <script src="https://cdn.tailwindcss.com"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> 
 </head>
 <body>
-  
+<?php
+    // require "components/_navbar.php";
+    require "components/_dbconnection.php";
+    if($_SERVER["REQUEST_METHOD"]=="POST"){
+     $email = $_POST['email'];
+    $password = $_POST['password'];
+     $sql = "select * from usersdata where email = '$email'";
+     $result = mysqli_query($conn,$sql);
+     $rows =mysqli_num_rows($result);
+     if($rows==1){
+    while($rows = mysqli_fetch_assoc($result)){
+        if(password_verify($password,$rows['password'])){
+            session_start();
+            $_SESSION['loggedin'] = true;
+            $_SESSION['email'] = $email;
+            $_SESSION['name'] = $rows['name'];
+            echo '
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+     <strong>Success!</strong> You have been login successfully .
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   </div>
+            ';
+            header("location: /boom/Boom.php");
+        }
+        else{
+            echo '
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+     <strong>Error!</strong> Invalid Credentials .
+     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+   </div>
+            ';
+        }
+    }
+     }
+     else{
+        echo '
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+ <strong>Error!</strong> No user found with this email address .
+ <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+        ';
+     }
+    }
+    ?>
     <div class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl my-16">
-        <div class="hidden bg-cover lg:block lg:w-1/2" style="background-image: url('VideoImage.jpg');"></div>
+        <div class="hidden bg-cover lg:block lg:w-1/2" style="background-image: url('/gatepassapp/images/login.jpg');"></div>
     
         <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
             <div class="flex justify-center mx-auto">
-                <img class="w-auto h-7 sm:h-8" src="downloadvaf.png" alt="">
+                <img class="w-auto h-7 sm:h-8" src="/boom/downloadvaf.png" alt="">
             </div>
     
             <p class="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
@@ -41,33 +86,34 @@
     
                 <span class="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
             </div>
-           
+           <form action="/boom/login.php" method="post">
             <div class="mt-4">
                 <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="email">Email Address</label>
-                <input id="email" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" />
+                <input id="email" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" name= "email"/>
             </div>
     
             <div class="mt-4">
                 <div class="flex justify-between">
                     <label class="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="password">Password</label>
-                    <a href="#" class="text-xs text-gray-500 dark:text-gray-300 hover:underline">Forget Password?</a>
+                    <a href="/boom/forget.php" class="text-xs text-gray-500 dark:text-gray-300 hover:underline">Forget Password?</a>
                 </div>
     
-                <input id="password" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" />
+                <input id="password" class="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" name="password" />
             </div>
            
     
     
             <div class="mt-6">
-                <button class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50" onclick="handleLogin()">
+                <button class="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-gray-800 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50" type="submit">
                     Sign in
                 </button>
             </div>
+</form>
     
             <div class="flex items-center justify-between mt-4">
                 <span class="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
     
-                <a href="/Register.html" class="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">or sign up</a>
+                <a href="/gatepassapp/register.php" class="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">or sign up</a>
     
                 <span class="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
             </div>
@@ -76,27 +122,7 @@
     <script>
         let email=document.getElementById('email');
         let password=document.getElementById('password');
-      const handleLogin=()=>{
-      if(email.value==''||password.value==''){
-          alert('Please fill all the fields');
-      }
-      else{
-          if(localStorage.getItem('data')){
-          let a  = JSON.parse(localStorage.getItem('data'));
-          if(a.email==email.value && a.password==password.value){
-              alert('Login Successfull');
-              window.location.href='Boom.html';
-          }
-          else{
-              alert('Invalid Credentials');
-          }
-      }
-      else{
-          alert('User not found');
-      }
-    }
      
-    }
     </script>
 </body>
 </html>
