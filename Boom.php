@@ -9,13 +9,14 @@
 <body>
 <?php
 session_start();
-require "_navbar.php";
 if(isset($_SESSION['loggedin']) && $_SESSION['loggedin']==true){
 
 }
 else{
   header("location:/boom/login.php");
 }
+require "_navbar.php";
+
 ?>
   
         <!-- Hero -->

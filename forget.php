@@ -44,7 +44,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
         $mail->Port = 587; // TCP port to connect to
     
         // Recipients
-        $mail->setFrom('account@gmsapp.com', 'Gatepass app'); // Sender's email and name
+        $mail->setFrom('account@boom.com', 'Boom App'); // Sender's email and name
         $mail->addAddress("$email", "USER"); // Recipient's email and name
         // Content
         $mail->isHTML(true); // Set email format to HTML
