@@ -54,7 +54,7 @@
     }
     ?>
     <div class="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl my-16">
-        <div class="hidden bg-cover lg:block lg:w-1/2" style="background-image: url('/gatepassapp/images/login.jpg');"></div>
+        <div class="hidden bg-cover lg:block lg:w-1/2" style="background-image: url('/boom/VideoImage.jpg');"></div>
     
         <div class="w-full px-6 py-8 md:px-8 lg:w-1/2">
             <div class="flex justify-center mx-auto">
@@ -113,7 +113,7 @@
             <div class="flex items-center justify-between mt-4">
                 <span class="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
     
-                <a href="/gatepassapp/register.php" class="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">or sign up</a>
+                <a href="/boom/register.php" class="text-xs text-gray-500 uppercase dark:text-gray-400 hover:underline">or sign up</a>
     
                 <span class="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
             </div>
